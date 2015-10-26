@@ -1,0 +1,11 @@
+.row
+	.col-md-4
+		= link_to "Add New Itinerary", new_destination_path, class: "btn btn-md btn-primary"
+	.col-md-8
+		- @destinations.each do |destination|
+			%h4
+				= link_to destination.name, destination_path(destination)
+				= destination.latitude
+				= destination.longitude
+			= link_to "Edit", edit_destination_path(destination), class: "btn btn-xs btn-success"
+			= link_to "Remove", destination_path(destination), method: :delete, data: { confirm: "are you sure?" }, class: "btn btn-xs btn-success"
