@@ -17,5 +17,7 @@
 @import 'bootstrap-sprockets';
 @import 'bootstrap';
 
-body {
-}
+#map { 
+	height: 500px;
+	width: 500px;
+ }

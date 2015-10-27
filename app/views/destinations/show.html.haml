@@ -1,2 +1,41 @@
-<h1>Destinations#show</h1>
-<p>Find me in app/views/destinations/show.html.erb</p>
+.col-md-6
+	= link_to "Home", root_url
+	%h1= @destination.name
+	- @destination.locations.each do |location|
+		%h2= location.name
+		%li
+			%p= location.description
+		=location.latitude
+		=location.longitude
+
+	%h2 nearby cities
+	//- for name in @destination.nearbys(25)
+	//	%li
+	//		= link_to name.name, destination_path(name)
+	//		= name.distance.round(2)
+	//		miles 
+
+.col-md-6
+	#map
+:javascript
+	var map;
+	function initMap() {
+	  var myLatLng = {lat: 43.680701, lng: -79.284407};
+
+	  map = new google.maps.Map(document.getElementById('map'), {
+	    zoom: 15,
+	    center: myLatLng,
+	  });
+
+	  var marker = new google.maps.Marker({
+	    position: myLatLng,
+	    map: map,
+	    animation: google.maps.Animation.DROP,
+	    title: "#{@locations.name}"
+	  });
+	}
+
+
+
+%script{:async => "", :defer => "", :src => "https://maps.googleapis.com/maps/api/js?key=AIzaSyBdMDyASdvSs-EL3DUXLggdI9WKcZenQKg&callback=initMap"}
+
