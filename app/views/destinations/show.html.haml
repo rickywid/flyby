@@ -1,41 +1,48 @@
-.col-md-6
+.col-md-12
 	= link_to "Home", root_url
-	%h1= @destination.name
+.col-md-6
+	.row.destination-details
+		%h1= @destination.name
+	%h5= @destination.date
 	- @destination.locations.each do |location|
 		%h2= location.name
+		%p= location.date
 		%li
 			%p= location.description
 		=location.latitude
 		=location.longitude
 
-	%h2 nearby cities
-	//- for name in @destination.nearbys(25)
-	//	%li
-	//		= link_to name.name, destination_path(name)
-	//		= name.distance.round(2)
-	//		miles 
+
+//- for name in @destination.nearbys(25)
+//	%li
+//		= link_to name.name, destination_path(name)
+//		= name.distance.round(2)
+//		miles 
 
 .col-md-6
+	.row.map-details
+		%h1 MAP
 	#map
 :javascript
+	var markers = #{@locations}
 	var map;
 	function initMap() {
-	  var myLatLng = {lat: 43.680701, lng: -79.284407};
-
+	
 	  map = new google.maps.Map(document.getElementById('map'), {
-	    zoom: 15,
-	    center: myLatLng,
+	    zoom: 13,
+	    center: new google.maps.LatLng(markers[0].latitude, markers[0].longitude),
 	  });
 
-	  var marker = new google.maps.Marker({
-	    position: myLatLng,
-	    map: map,
-	    animation: google.maps.Animation.DROP,
-	    title: "#{@locations.name}"
-	  });
-	}
-
-
+		for (var i = 0; i < markers.length; i++) {
+			var data = markers[i];
+			var myLatlng = new google.maps.LatLng(data.latitude, data.longitude);
+			var marker = new google.maps.Marker({
+				position: myLatlng,
+				map: map,
+				title: data.name
+			});
+		};
+	};	
 
 %script{:async => "", :defer => "", :src => "https://maps.googleapis.com/maps/api/js?key=AIzaSyBdMDyASdvSs-EL3DUXLggdI9WKcZenQKg&callback=initMap"}
 

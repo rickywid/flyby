@@ -28,7 +28,7 @@ class DestinationsController < ApplicationController
 
   def show
   	@destination = Destination.find(params[:id])
-  	@locations = @destination.locations
+  	@locations = @destination.locations.to_json
   end
 
   def destroy
