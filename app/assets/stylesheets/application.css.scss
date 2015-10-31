@@ -19,9 +19,22 @@
 
 #map { 
 	height: 400px;
-	width: 400px;
+	width: 100%;
  }
 
+.destination {
+	display: inline-block;
+}
 .destination-details, .map-details {
 	border-bottom: 1px solid black;
+}
+
+.v-align {
+	position: relative;
+	top: 50%;
+	transform: translateY(-50%);
+}
+
+.locations {
+	float:left;
 }

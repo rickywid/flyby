@@ -1,35 +1,35 @@
-.col-md-12
-	= link_to "Home", root_url
-.col-md-6
-	.row.destination-details
-		%h1= @destination.name
-	%h5= @destination.date
-	- @destination.locations.each do |location|
-		%h2= location.name
-		%p= location.date
-		%li
-			%p= location.description
-		=location.latitude
-		=location.longitude
+.row.destination-details
+	.col-md-12
+		%h1.destination= @destination.name
+		= link_to "Edit", edit_destination_path(@destination), class: "btn btn-xs btn-success v-align"
+.row
+	.col-md-12
+		%h4 Accomodation Details		
+		%h5 Hotel Name
+		%h5 Hotel Address
+		%h5= @destination.date
+		%ol
+			- @location_details.each do |location|
+				.col-md-4
+					.locations
+						%li
+							%h2= location.name
+							%p= location.city
+							%p= location.address
+							%p= location.date
+							%p= location.description
 
+.row
+	.col-md-12
+		#map
 
-//- for name in @destination.nearbys(25)
-//	%li
-//		= link_to name.name, destination_path(name)
-//		= name.distance.round(2)
-//		miles 
-
-.col-md-6
-	.row.map-details
-		%h1 MAP
-	#map
 :javascript
 	var markers = #{@locations}
 	var map;
 	function initMap() {
-	
-	  map = new google.maps.Map(document.getElementById('map'), {
-	    zoom: 13,
+		var bounds = new google.maps.LatLngBounds();
+	  	map = new google.maps.Map(document.getElementById('map'), {
+	    zoom: 10,
 	    center: new google.maps.LatLng(markers[0].latitude, markers[0].longitude),
 	  });
 
@@ -41,8 +41,9 @@
 				map: map,
 				title: data.name
 			});
+			bounds.extend(marker.position);
 		};
+		map.fitBounds(bounds);	
 	};	
 
 %script{:async => "", :defer => "", :src => "https://maps.googleapis.com/maps/api/js?key=AIzaSyBdMDyASdvSs-EL3DUXLggdI9WKcZenQKg&callback=initMap"}
-

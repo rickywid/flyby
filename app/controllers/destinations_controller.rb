@@ -23,11 +23,12 @@ class DestinationsController < ApplicationController
   def update
   	@destination = Destination.find(params[:id])
   	@destination.update_attributes(destination_params)
-  	redirect_to root_url
+  	redirect_to @destination
   end
 
   def show
   	@destination = Destination.find(params[:id])
+  	@location_details = @destination.locations.order(:date)
   	@locations = @destination.locations.to_json
   end
 
@@ -39,6 +40,6 @@ class DestinationsController < ApplicationController
 
   private
   	def destination_params 
-  		params.require(:destination).permit(:name, :date, :description, :latitude, :longitude, locations_attributes: [:id, :name, :date, :description, :_destroy])
+  		params.require(:destination).permit(:name, :date, :description, :latitude, :longitude, locations_attributes: [:id, :name, :city, :address, :date, :description, :_destroy])
   	end
 end
