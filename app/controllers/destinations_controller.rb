@@ -28,6 +28,7 @@ class DestinationsController < ApplicationController
 
   def show
   	@destination = Destination.find(params[:id])
+  	@accomodation = @destination.accomodations.first
   	@location_details = @destination.locations.order(:date)
   	@locations = @destination.locations.to_json
   end
@@ -40,6 +41,6 @@ class DestinationsController < ApplicationController
 
   private
   	def destination_params 
-  		params.require(:destination).permit(:name, :date, :description, :latitude, :longitude, locations_attributes: [:id, :name, :city, :address, :date, :description, :_destroy])
+  		params.require(:destination).permit(:name, :date, :description, :latitude, :longitude, locations_attributes: [:id, :name, :city, :address, :date, :description, :_destroy], accomodations_attributes: [:id, :name, :address,:_destroy])
   	end
 end

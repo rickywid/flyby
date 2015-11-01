@@ -3,12 +3,14 @@
 		%h1.destination= @destination.name
 		= link_to "Edit", edit_destination_path(@destination), class: "btn btn-xs btn-success v-align"
 .row
+	%h2 Accomodation Details		
 	.col-md-12
-		%h4 Accomodation Details		
-		%h5 Hotel Name
-		%h5 Hotel Address
+		%h5 #{@accomodation.name}
+		%h5 #{@accomodation.address}
 		%h5= @destination.date
 		%ol
+		.row
+			%h2  Places to Visit
 			- @location_details.each do |location|
 				.col-md-4
 					.locations
@@ -32,6 +34,13 @@
 	    zoom: 10,
 	    center: new google.maps.LatLng(markers[0].latitude, markers[0].longitude),
 	  });
+
+		var hotel_marker = new google.maps.Marker({
+			position: {lat: #{@accomodation.latitude}, lng: #{@accomodation.longitude}},
+			map: map,
+			title: 'Hello World!',
+			icon: "http://www.pacificonline.com/images/icons/office_building_64px.png"
+		});
 
 		for (var i = 0; i < markers.length; i++) {
 			var data = markers[i];

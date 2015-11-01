@@ -17,6 +17,10 @@
 @import 'bootstrap-sprockets';
 @import 'bootstrap';
 
+body {
+	margin-bottom: 300px;
+}
+
 #map { 
 	height: 400px;
 	width: 100%;
@@ -37,4 +41,8 @@
 
 .locations {
 	float:left;
+}
+
+.navbar-fixed-bottom {
+	margin-top: 100px;
 }
