@@ -1,8 +1,8 @@
-.nested-fields
+.nested-fields.clearfix
 	%p= f.input :name, label: "Location Name", input_html: {class: "form-control"}
 	%p= f.input :city, label: "City", input_html: {class: "form-control"}
 	%p= f.input :address, label: "Address", input_html: {class: "form-control"}
-	%p= f.input :date
+	%p= f.input :date, label: "Visit Date"
 	%p= f.input :description, label: "Notes", input_html: {class: "form-control"}
-	%br
-	%p= link_to_remove_association "remove task", f, class: "btn btn-md btn-danger"
+	= link_to_remove_association "Remove", f, class: "btn btn-sm btn-danger"
+	

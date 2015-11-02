@@ -1,0 +1,32 @@
+.row.destination-details
+	.col-md-12
+		%h1.destination= @location.name
+.row
+	.col-md-12
+		%h2 Nearby Locations
+		- @location.nearbys(1).each do |location|
+			.col-md-3
+				%li
+					= location.name
+					= location.distance.round(2)
+					miles
+
+#map
+
+:javascript
+	function initMap() {
+		var myLatLng = {lat: #{@location.latitude}, lng: #{@location.longitude} };
+
+		var map = new google.maps.Map(document.getElementById('map'), {
+			zoom: 18,
+			center: myLatLng
+		});
+
+		var marker = new google.maps.Marker({
+			position: myLatLng,
+			map: map,
+		});
+	};
+
+
+%script{:async => "", :defer => "", :src => "https://maps.googleapis.com/maps/api/js?key=AIzaSyBdMDyASdvSs-EL3DUXLggdI9WKcZenQKg&callback=initMap"}

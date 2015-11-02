@@ -1,23 +1,33 @@
-.col-md-6.col-md-offset-3
-	%h1 New Itinerary
+.col-md-12.form
+	%h1 Itinerary Details
 	= simple_form_for @destination do |f|
-		%p= f.input :name, input_html: {class: "form-control"}, label: "Name of Country Travelling To"
-		%p= f.input :date
+
+		- if @destination.errors.any?
+			.errors
+				- @destination.errors.full_messages.each do |err|
+					%li
+						%p.err= err  
+
+		%p= f.input :name, input_html: {class: "form-control clearfix"}, label: "Itinerary Name"
+		%p= f.input :start_date, label: "Travel Start"
+		%p= f.input :end_date, label: "Travel End"
 		%p= f.input :description, as: :text, input_html: {class: "form-control"}, label: "Trip Notes"
 		
-		#accomodations
+		%h3 Accomodation Details
+		#accomodations			
 			= f.simple_fields_for :accomodations do |accomodation|
 				= render 'accomodation_fields', f: accomodation
 			.links
-				= link_to_add_association 'add accomodation', f, :accomodations, class: "btn btn-md btn-success"
-		%br
+				= link_to_add_association 'Add', f, :accomodations, class: "btn btn-sm btn-success"
 
 		%h3 Locations
 		#locations
 			= f.simple_fields_for :locations do |location|
 				= render 'location_fields', f: location
 			.links
-				= link_to_add_association 'add location', f, :locations, class: "btn btn-md btn-success"
+				= link_to_add_association 'Add', f, :locations, class: "btn btn-sm btn-success"
+		
 		%br
-		= f.submit "Add New Itinerary", class: "btn btn-sm btn-success"
-		= link_to "Cancel", root_url, class: "btn btn-sm btn-danger"
+		%hr
+		= f.submit "Create New Itinerary", class: "btn btn-sm btn-success"
+		= link_to "Cancel", root_url, class: "btn btn-sm btn-danger cancel"

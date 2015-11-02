@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151101000727) do
+ActiveRecord::Schema.define(version: 20151102031146) do
 
   create_table "accomodations", force: :cascade do |t|
     t.string   "name"
@@ -22,6 +22,7 @@ ActiveRecord::Schema.define(version: 20151101000727) do
     t.integer  "destinations_id"
     t.float    "latitude"
     t.float    "longitude"
+    t.text     "add_notes"
   end
 
   add_index "accomodations", ["destination_id"], name: "index_accomodations_on_destination_id"
@@ -33,7 +34,8 @@ ActiveRecord::Schema.define(version: 20151101000727) do
     t.datetime "updated_at",  null: false
     t.float    "latitude"
     t.float    "longitude"
-    t.date     "date"
+    t.date     "start_date"
+    t.date     "end_date"
   end
 
   create_table "locations", force: :cascade do |t|
@@ -46,7 +48,7 @@ ActiveRecord::Schema.define(version: 20151101000727) do
     t.text     "description"
     t.date     "date"
     t.string   "city"
-    t.string   "address"
+    t.text     "address"
   end
 
   add_index "locations", ["destination_id"], name: "index_locations_on_destination_id"

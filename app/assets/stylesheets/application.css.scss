@@ -24,13 +24,18 @@ body {
 #map { 
 	height: 400px;
 	width: 100%;
+	margin-top: 30px;
  }
+
+.nested-fields {
+}
 
 .destination {
 	display: inline-block;
 }
 .destination-details, .map-details {
 	border-bottom: 1px solid black;
+	margin-top: 30px;
 }
 
 .v-align {
@@ -39,10 +44,81 @@ body {
 	transform: translateY(-50%);
 }
 
-.locations {
-	float:left;
+.location-details {
+	height: 170px;
 }
 
 .navbar-fixed-bottom {
 	margin-top: 100px;
+}
+
+.btn {
+	font-weight: bold;
+}
+
+.btn-sm {
+	display: inherit;
+}
+
+.btn-primary {
+	margin-top: 20px;
+}
+
+.btn-danger {
+	margin-bottom: 5px;
+}
+
+.cancel {
+	display: inline-block;
+}
+
+input[type="submit"] {
+	float:left;
+	margin-right: 10px;
+}
+
+.remove_btn {
+	float: left;
+	display: inline;
+	padding-right: 15px;
+}
+
+.clearfix {
+	clear: left;
+}
+
+.err {
+	color: red;
+	font-weight: bold;
+}
+
+.error {
+	font-weight: bold;
+	color: red;
+}
+
+.errors {
+	background-color: #FFE7E7;
+	padding: 20px;
+	border-radius: 5px;
+}
+
+.alert {
+	margin-top: 10px;
+}
+.alert-success {
+	font-weight: bold;
+}
+
+label {
+	display: block;
+}
+
+.form {
+	background-color: rgb(223, 223, 255);
+	padding: 20px 100px;
+}
+
+.navbar-default {
+	margin-bottom: 0;
 }

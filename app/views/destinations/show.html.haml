@@ -3,23 +3,21 @@
 		%h1.destination= @destination.name
 		= link_to "Edit", edit_destination_path(@destination), class: "btn btn-xs btn-success v-align"
 .row
-	%h2 Accomodation Details		
-	.col-md-12
-		%h5 #{@accomodation.name}
+	.col-md-3
+		%h2 #{@accomodation.name}
 		%h5 #{@accomodation.address}
-		%h5= @destination.date
-		%ol
-		.row
-			%h2  Places to Visit
-			- @location_details.each do |location|
-				.col-md-4
-					.locations
-						%li
-							%h2= location.name
-							%p= location.city
-							%p= location.address
-							%p= location.date
-							%p= location.description
+		%h5 Travel Start: #{@destination.start_date}
+		%h5 Travel End: #{@destination.end_date}
+		%h5= @accomodation.add_notes
+	
+	.col-md-9
+		- @location_details.each do |location|
+			.col-md-3.location-details
+				%h2= link_to location.name, destination_location_path(@destination, location)
+				%p= location.city
+				%p= location.address
+				%p= location.date
+				%p= location.description
 
 .row
 	.col-md-12
@@ -38,8 +36,8 @@
 		var hotel_marker = new google.maps.Marker({
 			position: {lat: #{@accomodation.latitude}, lng: #{@accomodation.longitude}},
 			map: map,
-			title: 'Hello World!',
-			icon: "http://www.pacificonline.com/images/icons/office_building_64px.png"
+			icon: "http://www.pacificonline.com/images/icons/office_building_64px.png",
+			title: "#{@accomodation.name}"
 		});
 
 		for (var i = 0; i < markers.length; i++) {
