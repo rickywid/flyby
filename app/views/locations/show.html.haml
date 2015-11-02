@@ -1,17 +1,19 @@
 .row.destination-details
 	.col-md-12
 		%h1.destination= @location.name
+
+= link_to "Show Itinerary", destination_path(@destination), class: "btn btn-success btn-sm show-itinerary"
+#map
+
 .row
 	.col-md-12
 		%h2 Nearby Locations
 		- @location.nearbys(1).each do |location|
 			.col-md-3
 				%li
-					= location.name
+					= link_to location.name, destination_location_path(@destination, location)
 					= location.distance.round(2)
 					miles
-
-#map
 
 :javascript
 	function initMap() {
