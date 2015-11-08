@@ -16,9 +16,113 @@
 
 @import 'bootstrap-sprockets';
 @import 'bootstrap';
+@import url(https://fonts.googleapis.com/css?family=Italianno);
+@import url(https://fonts.googleapis.com/css?family=PT+Sans:400,400italic);
+@import url(https://fonts.googleapis.com/css?family=Lemon);
+
+$light-red: rgb(250, 130, 130);
+$light-green: rgb(173, 253, 177);
+$dark-green: #5EC863;
+$light-blue: #c3d3ff;
+$dark-blue: #8BA2E0;
+$cyan: #5EC8B0;
+$dark-cyan: #379882;
+$dark-red: #E25050;
+$border-grey: 1px solid rgb(224, 224, 224);
+
 
 body {
 	margin-bottom: 300px;
+}
+
+h1,h2,h3,h4,h5,h6 {
+	margin: 0;
+	font-family: 'Italianno', cursive;
+	font-weight: 100;
+	color: $light-red;
+}
+
+p, .nav-links {
+	font-family: 'PT Sans', sans-serif;
+}
+
+a {
+	color: $light-red;
+}
+
+a:hover {
+	text-decoration: none;
+	color: $dark-red;
+}
+
+.index {
+	margin-top: 50px;
+	.col-md-4.index-col-left {
+		text-align: center;
+	}
+	.listing {
+		margin-bottom: 20px;
+		padding-bottom: 20px;
+		border-bottom: $border-grey;
+	}
+	.title {
+		font-size: 70px;
+	}
+}
+/********** SHOW PAGE***********/
+
+.locations {
+	border-left: $border-grey;
+}
+
+.location-details {
+	height: 240px;
+	h2 {
+		font-size: 40px; 
+	}
+}
+
+.hotel {
+	padding-left: 0;
+	h2 { 
+		font-size: 40px;
+		text-align: center;
+	}
+}
+
+.description {
+	background-color: $light-green;
+	padding: 10px;
+	font-weight: bold;
+}
+
+.visit {
+	color: $dark-green;
+	font-weight: bold;
+	display: inline;
+}
+
+.sub-visit {
+	color: $cyan;
+	display: inline;
+	font-size: 14px;
+	font-family: 'Lemon', cursive;
+}
+
+
+/******EDIT*****/
+
+
+.heading-form {
+		font-size: 70px;
+		border-bottom: $border-grey;
+		margin-bottom: 10px;
+		background-color: white;
+		padding-top: 60px;
+	}
+
+.simple-form {
+	background-color: white;
 }
 
 #map { 
@@ -30,24 +134,31 @@ body {
 .nested-fields {
 }
 
-.destination {
-	display: inline-block;
+.heading {
+	display: inline;
+	font-size: 70px;
+}
+
+.sub-heading {
+	display: inline;
+	color: $cyan;
 }
 .destination-details, .map-details {
-	border-bottom: 1px solid black;
+	border-bottom: $border-grey;
 	margin-top: 30px;
 	margin-bottom: 15px;
+	color: $light-red;
+
 }
 
 .v-align {
 	position: relative;
+	margin-left: 20px;
 	top: 50%;
 	transform: translateY(-50%);
 }
 
-.location-details {
-	height: 170px;
-}
+
 
 .navbar-fixed-bottom {
 	margin-top: 100px;
@@ -63,12 +174,29 @@ body {
 
 .btn-primary {
 	margin-top: 20px;
+	background-color: $light-blue;
+	border: none;
+}
+
+.btn-primary:hover {
+	margin-top: 20px;
+	background-color: $dark-blue;
+	border: none;
 }
 
 .btn-danger {
 	margin-bottom: 5px;
 }
 
+.btn-success {
+	background-color: $cyan;
+	border: none;
+}
+
+.btn-success:hover {
+	background-color: $dark-cyan;
+	border: none;
+}
 .show-itinerary {
 	display: inline;
 }
@@ -117,11 +245,6 @@ input[type="submit"] {
 
 label {
 	display: block;
-}
-
-.form {
-	background-color: rgb(223, 223, 255);
-	padding: 20px 100px;
 }
 
 .navbar-default {

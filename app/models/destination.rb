@@ -4,5 +4,5 @@ class Destination < ActiveRecord::Base
 	accepts_nested_attributes_for :locations, reject_if: :all_blank, allow_destroy: true
 	accepts_nested_attributes_for :accomodations, reject_if: :all_blank, allow_destroy: true
 
-	validates :name, presence: true
+	validates :name, :description, presence: true
 end

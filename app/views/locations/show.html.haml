@@ -1,33 +1,110 @@
 .row.destination-details
 	.col-md-12
-		%h1.destination= @location.name
+		%h1.heading #{@location.name} 
+		%h1.heading /
+		%h1.sub-heading
+			Distance From Hotel: 
+			= @location.distance_to([@accomodation.latitude, @accomodation.longitude]).round(2)
+			KM
 
 = link_to "Show Itinerary", destination_path(@destination), class: "btn btn-success btn-sm show-itinerary"
 #map
+%h2 Notes
+%p= @location.description
 
 .row
 	.col-md-12
 		%h2 Nearby Locations
-		- @location.nearbys(1).each do |location|
+		- @location.nearbys(1, :units => :km).each do |location|
 			.col-md-3
 				%li
-					= link_to location.name, destination_location_path(@destination, location)
-					= location.distance.round(2)
-					miles
+					.visit= link_to location.name, destination_location_path(@destination, location)
+					.sub-visit
+						= location.distance.round(2)
+						miles
 
 :javascript
 	function initMap() {
 		var myLatLng = {lat: #{@location.latitude}, lng: #{@location.longitude} };
+		var content = "#{@location.description}";
 
+		//Create Map
 		var map = new google.maps.Map(document.getElementById('map'), {
 			zoom: 18,
 			center: myLatLng
 		});
 
+		//Create Polyline
+		var Coordinates = [
+			{lat: #{@accomodation.latitude}, lng: #{@accomodation.longitude}},
+			{lat: #{@location.latitude}, lng: #{@location.longitude}}
+		];
+
+		var Path = new google.maps.Polyline({
+			path: Coordinates,
+			geodesic: true,
+			strokeColor: '#FF0000',
+			strokeOpacity: 1.0,
+			strokeWeight: 2
+		});
+
+		Path.setMap(map);
+
+		//Assign and Display Markers
+		var hotel_marker = new google.maps.Marker({
+			position: {lat: #{@accomodation.latitude}, lng: #{@accomodation.longitude}},
+			map: map,
+			icon: "http://www.pacificonline.com/images/icons/office_building_64px.png",
+			title: "#{@accomodation.name}"
+		});
+
 		var marker = new google.maps.Marker({
 			position: myLatLng,
 			map: map,
+			title: "#{@location.name}"
 		});
+
+		//Info Window
+		var contentString = "#{@location.description}"
+		
+		var infowindow = new google.maps.InfoWindow({
+			content: contentString
+		});
+
+		marker.addListener('click', function() {
+			infowindow.open(map, marker);
+		});
+
+		//Auto Center Map
+		var locations = [
+			['#{@accomodation.name}', #{@accomodation.latitude}, #{@accomodation.longitude}, 1],
+			['#{@location.name}', #{@location.latitude}, #{@location.longitude}, 2]
+		];
+
+		//create empty LatLngBounds object
+		var bounds = new google.maps.LatLngBounds();
+
+		for (var i = 0; i < locations.length; i++) {  
+		  var marker = new google.maps.Marker({
+		    position: new google.maps.LatLng(locations[i][1], locations[i][2]),
+		    map: map,
+		    title: locations[i][0]
+		  });
+
+		  //extend the bounds to include each marker's position
+		  bounds.extend(marker.position);
+
+		  google.maps.event.addListener(marker, 'click', (function(marker, i) {
+		    return function() {
+		      infowindow.setContent(content);
+		      infowindow.open(map, marker);
+		    }
+		  })(marker, i));
+		}
+
+		//now fit the map to the newly inclusive bounds
+		map.fitBounds(bounds);
+
 	};
 
 

@@ -1,23 +1,41 @@
 .row.destination-details
 	.col-md-12
-		%h1.destination= @destination.name
+		%h1.heading= @destination.name
 		= link_to "Edit", edit_destination_path(@destination), class: "btn btn-xs btn-success v-align"
 .row
-	.col-md-3
-		%h2 #{@accomodation.name}
-		%h5 #{@accomodation.address}
-		%h5 Travel Start: #{@destination.start_date}
-		%h5 Travel End: #{@destination.end_date}
-		%h5= @accomodation.add_notes
-	
-	.col-md-9
+	.col-md-12
+	%p.description= @destination.description
+.row
+	.col-md-3.hotel
+		.panel.panel-default
+			.panel-heading
+				%h2 #{@accomodation.name}
+			.panel-body
+				%p.visit Address
+				.sub-visit= @accomodation.address
+				%br
+				%p.visit Travel Start: 
+				.sub-visit=@destination.start_date
+				%br
+				%p.visit Travel End: 
+				.sub-visit= @destination.end_date
+				
+	.col-md-9.locations
 		- @location_details.each do |location|
-			.col-md-3.location-details
+			.col-md-4.location-details
 				%h2= link_to location.name, destination_location_path(@destination, location)
-				%p= location.city
-				%p= location.address
-				%p= location.date
-				%p= location.description
+				%br
+				%p.visit Address
+				.sub-visit= location.address
+				%br
+				%p.visit Visit On:
+				.sub-visit= location.date
+				%br
+				- @acc_dist.each do |acc_dist|
+					%p.visit Distance From Hotel
+					.sub-visit
+						= location.distance_to([acc_dist.latitude, acc_dist.longitude], :km).round(2)
+						KM
 
 .row
 	.col-md-12

@@ -5,7 +5,7 @@ class Location < ActiveRecord::Base
 	belongs_to :destination
 
 	def full_address
-		"#{address}, #{name}, #{city}"
+		"#{address}, #{name}"
 	end
 
 	validates :name,:address,:date, presence: true

@@ -23,9 +23,12 @@ class DestinationsController < ApplicationController
 
   def update
   	@destination = Destination.find(params[:id])
-  	@destination.update_attributes(destination_params)
-  	flash[:success] = "Itinerary has been updated"
-  	redirect_to @destination
+  	if @destination.update(destination_params)	
+  		flash[:success] = "Itinerary has been updated"
+  		redirect_to @destination
+  	else
+  		render 'edit'
+  	end
   end
 
   def show
@@ -33,6 +36,7 @@ class DestinationsController < ApplicationController
   	@accomodation = @destination.accomodations.first
   	@location_details = @destination.locations.order(:date)
   	@locations = @destination.locations.to_json
+  	@acc_dist = @destination.accomodations
   end
 
   def destroy

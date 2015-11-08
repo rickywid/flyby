@@ -1,26 +1,25 @@
+%h1.heading-form Itinerary Details
 .col-md-12.form
-	%h1 Itinerary Details
-	= simple_form_for @destination do |f|
+	= simple_form_for @destination, html: { class: "simple-form"} do |f|
 
 		- if @destination.errors.any?
 			.errors
 				- @destination.errors.full_messages.each do |err|
 					%li
 						%p.err= err  
-
 		%p= f.input :name, input_html: {class: "form-control clearfix"}, label: "Itinerary Name"
-		%p= f.input :start_date, label: "Travel Start"
-		%p= f.input :end_date, label: "Travel End"
+		%p= f.input :start_date, label: "Travel Start", input_html: {class: "clearfix"}
+		%p= f.input :end_date, label: "Travel End", input_html: {class: "clearfix"}
 		%p= f.input :description, as: :text, input_html: {class: "form-control"}, label: "Trip Notes"
 		
-		%h3 Accomodation Details
-		#accomodations			
+		%h1.heading-form Hotel Details	
+		#accomodations
 			= f.simple_fields_for :accomodations do |accomodation|
 				= render 'accomodation_fields', f: accomodation
 			.links
 				= link_to_add_association 'Add', f, :accomodations, class: "btn btn-sm btn-success"
 
-		%h3 Locations
+		%h1.heading-form Location Details
 		#locations
 			= f.simple_fields_for :locations do |location|
 				= render 'location_fields', f: location
@@ -29,5 +28,6 @@
 		
 		%br
 		%hr
-		= f.submit "Create New Itinerary", class: "btn btn-sm btn-success"
-		= link_to "Cancel", root_url, class: "btn btn-sm btn-danger cancel"
+		#submit
+			= f.submit "Update Itinerary", class: "btn btn-sm btn-success"
+			= link_to "Cancel", root_url, class: "btn btn-sm btn-danger cancel"
